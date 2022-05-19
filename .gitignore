@@ -1,8 +1,9 @@
 # dependencies
 /node_modules
 
-# production
+# output
 /build
+/dist
 
 # env
 .env.local

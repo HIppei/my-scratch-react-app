@@ -1,7 +1,8 @@
-import path from 'path';
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.export = {
-  entry: './src/index.ts',
+module.exports = {
+  entry: path.join(__dirname, 'src', 'index.tsx'),
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
@@ -14,10 +15,27 @@ module.export = {
         use: {
           loader: 'babel-loader',
           options: {
-            prestes: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+            presets: [
+              '@babel/preset-env',
+              [
+                '@babel/preset-react',
+                {
+                  runtime: 'automatic',
+                },
+              ],
+              '@babel/preset-typescript',
+            ],
           },
         },
       },
     ],
   },
+  resolve: {
+    extensions: ['.ts', '.js', '.tsx', '.jsx'],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'public', 'index.html'),
+    }),
+  ],
 };
